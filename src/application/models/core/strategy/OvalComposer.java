@@ -1,65 +1,44 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
-import application.controllers.OOPDrawController;
 import application.models.core.AbstractShape;
-import application.models.core.MyOval;
-import application.models.core.observer.Observer;
-import application.models.core.observer.Subject;
-import application.models.enums.ShapeEnum;
+import application.models.core.OvalAdapter;
 import application.models.interfaces.IShapeComposer;
 
-public class OvalComposer extends Observer implements IShapeComposer
+public class OvalComposer implements IShapeComposer
 {
-	private MyOval oval;
+	private OvalAdapter ovalAdapter;
 	private int shapeWidth, shapeHeight;
-	private OOPDrawController controller;
-	private Subject subject;
 	
-	public OvalComposer(OOPDrawController controller, Subject subject)
-	{
-		this.controller = controller;
-		this.subject = subject;
-		this.subject.attach(this);
-	}
+	public OvalComposer() { }
 
 	@Override
-	public void create(int x, int y)
+	public AbstractShape create(int x, int y)
 	{
 		Point startPos = new Point(x, y);
-		oval = new MyOval();
-		oval.setStart(startPos);
-		controller.getShapes().add(oval);
+		ovalAdapter = new OvalAdapter();
+		ovalAdapter.setStart(startPos);
+		
+		return ovalAdapter;
 	}
 
 	@Override
 	public void expand(int x, int y)
 	{	
-		initializeLastAddedOvalExpanding(oval.getStart(), new Point(x, y));
+		Point startPos = new Point((int)ovalAdapter.getOval().x, (int)ovalAdapter.getOval().y);
+		initializeLastAddedOvalExpanding(startPos, new Point(x, y));
 	}
 
 	@Override
 	public void complete(int x, int y)
 	{
-		initializeLastAddedOvalCompletion(oval.getStart(), new Point(x, y));
-	}
-	
-	public MyOval getOval()
-	{
-		return oval;
-	}
-	
-	@Override
-	public void update()
-	{
-		System.out.println("Shape created and drawing: " + subject.getActiveShape().
-				getClass().getSimpleName());	
+		initializeLastAddedOvalCompletion(ovalAdapter.getStart(), new Point(x, y));
 	}
 	
 	@Override
 	public AbstractShape getShape() 
 	{
-		return oval;
+		return ovalAdapter;
 	}
 	
 	private Point initializeOvalPositionsExpanding(Point startPosition, Point draggedPosition)
@@ -78,10 +57,9 @@ public class OvalComposer extends Observer implements IShapeComposer
 	{
 		Point newStartPosition = initializeOvalPositionsExpanding(startPosition, draggedPosition);
 		
-		oval = (MyOval) controller.findLastAdded(ShapeEnum.OVAL);
-		oval.setWidth(shapeWidth);
-		oval.setHeight(shapeHeight);
-		oval.setStart(newStartPosition);
+		ovalAdapter.getOval().width = shapeWidth;
+		ovalAdapter.getOval().height = shapeHeight;
+		ovalAdapter.setStart(newStartPosition);
 	}
 	
 	private Point initializeOvalPositionsCompletion(Point startPosition, Point releasedPosition)
@@ -100,9 +78,8 @@ public class OvalComposer extends Observer implements IShapeComposer
 	{
 		Point newStartPosition = initializeOvalPositionsCompletion(startPosition, releasedPosition);
 		
-		oval = (MyOval) controller.findLastAdded(ShapeEnum.OVAL);
-		oval.setWidth(shapeWidth);
-		oval.setHeight(shapeHeight);
-		oval.setStart(newStartPosition);
+		ovalAdapter.getOval().width = shapeWidth;
+		ovalAdapter.getOval().height = shapeHeight;
+		ovalAdapter.setStart(newStartPosition);
 	}
 }

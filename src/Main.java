@@ -7,5 +7,4 @@ public class Main
 		OOPDraw2 frame = new OOPDraw2();
 		frame.setVisible(true);
 	}
-
 }

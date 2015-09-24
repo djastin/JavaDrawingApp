@@ -1,66 +1,49 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
-import application.controllers.OOPDrawController;
 import application.models.core.AbstractShape;
-import application.models.core.MyRect;
-import application.models.core.observer.Observer;
-import application.models.core.observer.Subject;
-import application.models.enums.ShapeEnum;
+import application.models.core.RectAdapter;
 import application.models.interfaces.IShapeComposer;
 
-public class RectComposer extends Observer implements IShapeComposer
+public class RectComposer implements IShapeComposer
 {
-	private MyRect rectangle;
+	private RectAdapter rectangleAdapter;
 	private int shapeWidth, shapeHeight;
-	private OOPDrawController controller;
-	private Subject subject;
 	
-	public RectComposer(OOPDrawController controller, Subject subject)
-	{
-		this.controller = controller;
-		this.subject = subject;
-		this.subject.attach(this);
-	}
+	public RectComposer() { }
 
 	@Override
-	public void create(int x, int y)
+	public AbstractShape create(int x, int y)
 	{
-		rectangle = new MyRect();
-		rectangle.setStart(new Point(x, y));
-		controller.getShapes().add(rectangle);
+		rectangleAdapter = new RectAdapter();
+		rectangleAdapter.setStart(new Point(x, y));
+		
+		return rectangleAdapter;
 	}
 
 	@Override
 	public void expand(int x, int y) 
 	{		
-		Point newStartPosition = getRectPositionsExpanding(rectangle.getStart(), new Point(x, y));
+		Point newStartPosition = getRectPositionsExpanding(rectangleAdapter.getStart(), new Point(x, y));
 		setLastAddedRectExpanding(newStartPosition);		
 	}
 	
 	@Override
 	public void complete(int x, int y) 
 	{
-		Point newStartPosition = getRectPositionsCompletion(rectangle.getStart(), new Point(x, y));
+		Point newStartPosition = getRectPositionsCompletion(rectangleAdapter.getStart(), new Point(x, y));
 		setLastAddedRectCompletion(newStartPosition);		
 	}
 	
-	public MyRect getRectangle()
+	public RectAdapter getRectangle()
 	{
-		return rectangle;
+		return rectangleAdapter;
 	}
 	
 	@Override
 	public AbstractShape getShape()
 	{
-		return rectangle;
-	}
-	
-	@Override
-	public void update()
-	{
-		System.out.println("Shape created and drawing: " + subject.getActiveShape().
-				getClass().getSimpleName());
+		return rectangleAdapter;
 	}
 	
 	private Point getRectPositionsExpanding(Point startPosition, Point draggedPosition)
@@ -77,10 +60,9 @@ public class RectComposer extends Observer implements IShapeComposer
 	
 	private void setLastAddedRectExpanding(Point newStartPosition)
 	{		
-		rectangle = (MyRect) controller.findLastAdded(ShapeEnum.RECT);
-		rectangle.setWidth(shapeWidth);
-		rectangle.setHeight(shapeHeight);
-		rectangle.setStart(newStartPosition);
+		rectangleAdapter.getRectangle().width = shapeWidth;
+		rectangleAdapter.getRectangle().height = shapeHeight;
+		rectangleAdapter.setStart(newStartPosition);
 	}
 	
 	private Point getRectPositionsCompletion(Point startPosition, Point releasedPosition)
@@ -97,9 +79,8 @@ public class RectComposer extends Observer implements IShapeComposer
 	
 	private void setLastAddedRectCompletion(Point newStartPosition)
 	{
-		rectangle = (MyRect) controller.findLastAdded(ShapeEnum.RECT);
-		rectangle.setWidth(shapeWidth);
-		rectangle.setHeight(shapeHeight);
-		rectangle.setStart(newStartPosition);
+		rectangleAdapter.getRectangle().width = shapeWidth;
+		rectangleAdapter.getRectangle().height = shapeHeight;
+		rectangleAdapter.setStart(newStartPosition);
 	}
 }
