@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 
 public class LineAdapter implements AbstractShape
 {
@@ -43,27 +44,25 @@ public class LineAdapter implements AbstractShape
 	}
 	
 	@Override
-	public void setStart(Point point) 
+	public void setStart(Point2D.Float point) 
 	{
 		line.getP1().setLocation(point);
 	}
 
-	public void setEnd(Point point) 
+	public void setEnd(Point2D.Float point) 
 	{
 		line.getP2().setLocation(point);
 	}
 	
 	@Override
 	public void draw(Graphics2D g)
-	{
+	{		
 		int startX, startY, endX, endY;
 		startX = (int)line.getP1().getX();
 		startY = (int)line.getP1().getY();
 		endX = (int)line.getP2().getX();
 		endY = (int)line.getP2().getY();
-		
-		System.out.println(startX);
-		
+				
 		g.setColor(defaultColor); 
 		g.drawLine(startX, startY, endX, endY);
 	}

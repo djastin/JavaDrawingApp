@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 public class OvalAdapter implements AbstractShape
 {
@@ -28,7 +29,7 @@ public class OvalAdapter implements AbstractShape
 	}
 	
 	@Override
-	public void setStart(Point pt) 
+	public void setStart(Point2D.Float pt) 
 	{
 		oval.x = (int)pt.getX();
 		oval.y = (int)pt.getY();

@@ -1,6 +1,7 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import application.models.core.AbstractShape;
 import application.models.core.OvalAdapter;
 import application.models.interfaces.IShapeComposer;
@@ -15,7 +16,8 @@ public class OvalComposer implements IShapeComposer
 	@Override
 	public AbstractShape create(int x, int y)
 	{
-		Point startPos = new Point(x, y);
+		Point2D.Float startPos = new Point2D.Float();
+		startPos.setLocation(x, y);
 		ovalAdapter = new OvalAdapter();
 		ovalAdapter.setStart(startPos);
 		
@@ -41,42 +43,44 @@ public class OvalComposer implements IShapeComposer
 		return ovalAdapter;
 	}
 	
-	private Point initializeOvalPositionsExpanding(Point startPosition, Point draggedPosition)
+	private Point2D.Float initializeOvalPositionsExpanding(Point startPosition, Point draggedPosition)
 	{
 		Point drawto = new Point(Math.max(draggedPosition.x, startPosition.x), 
 				Math.max(draggedPosition.y, startPosition.y));
-		Point newStartPosition = new Point(Math.min(draggedPosition.x, startPosition.x), 
+		Point2D.Float newStartPosition = new Point2D.Float();
+				new Point(Math.min(draggedPosition.x, startPosition.x), 
 				Math.min(draggedPosition.y, startPosition.y));
-		shapeWidth = Math.abs((drawto.x - newStartPosition.x));
-		shapeHeight = Math.abs((drawto.y - newStartPosition.y));
+		shapeWidth = (int)Math.abs((drawto.x - newStartPosition.x));
+		shapeHeight = (int)Math.abs((drawto.y - newStartPosition.y));
 		
 		return newStartPosition;
 	}
 	
 	private void initializeLastAddedOvalExpanding(Point startPosition, Point draggedPosition)
 	{
-		Point newStartPosition = initializeOvalPositionsExpanding(startPosition, draggedPosition);
+		Point2D.Float newStartPosition = initializeOvalPositionsExpanding(startPosition, draggedPosition);
 		
 		ovalAdapter.getOval().width = shapeWidth;
 		ovalAdapter.getOval().height = shapeHeight;
 		ovalAdapter.setStart(newStartPosition);
 	}
 	
-	private Point initializeOvalPositionsCompletion(Point startPosition, Point releasedPosition)
+	private Point2D.Float initializeOvalPositionsCompletion(Point startPosition, Point releasedPosition)
 	{
 		Point drawto = new Point(Math.max(releasedPosition.x, startPosition.x), 
 				Math.max(releasedPosition.y, startPosition.y));
-		Point newStartPosition = new Point(Math.min(releasedPosition.x, startPosition.x),
+		Point2D.Float newStartPosition = new Point2D.Float();
+		newStartPosition.setLocation(Math.min(releasedPosition.x, startPosition.x),
 				Math.min(releasedPosition.y, startPosition.y));
-		shapeWidth = Math.abs((drawto.x - newStartPosition.x));
-		shapeHeight = Math.abs((drawto.y - newStartPosition.y));
+		shapeWidth = (int)Math.abs((drawto.x - newStartPosition.x));
+		shapeHeight = (int)Math.abs((drawto.y - newStartPosition.y));
 		
 		return newStartPosition;
 	}
 	
 	private void initializeLastAddedOvalCompletion(Point startPosition, Point releasedPosition)
 	{
-		Point newStartPosition = initializeOvalPositionsCompletion(startPosition, releasedPosition);
+		Point2D.Float newStartPosition = initializeOvalPositionsCompletion(startPosition, releasedPosition);
 		
 		ovalAdapter.getOval().width = shapeWidth;
 		ovalAdapter.getOval().height = shapeHeight;

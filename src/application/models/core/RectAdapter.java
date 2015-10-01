@@ -3,6 +3,7 @@ package application.models.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class RectAdapter implements AbstractShape 
@@ -26,7 +27,7 @@ public class RectAdapter implements AbstractShape
 		return new Point((int)rectangle.x, (int)rectangle.y);
 	}
 	
-	public void setStart(Point pt)
+	public void setStart(Point2D.Float pt)
 	{
 		rectangle.x = pt.x;
 		rectangle.y = pt.y;
