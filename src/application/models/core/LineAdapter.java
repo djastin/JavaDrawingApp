@@ -5,22 +5,21 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-public class LineAdapter implements AbstractShape
+public class LineAdapter extends Line2D implements AbstractShape
 {
-	private Line2D.Float line;
 	private Color defaultColor;
+	private Point startCoordination, endCoordination;
 	
 	public LineAdapter() 
 	{
-		line = new Line2D.Float();
+		defaultColor = Color.black;
+		
+		startCoordination = new Point();
+		endCoordination = new Point();
 	}
-	
-	public Line2D.Float getLine()
-	{
-		return line;
-	}
-	
+
 	@Override
 	public void setColor(Color color)
 	{
@@ -35,35 +34,77 @@ public class LineAdapter implements AbstractShape
 	@Override
 	public Point getStart() 
 	{
-		return new Point((int)line.getP1().getX(), (int)line.getP1().getY());
+		return startCoordination;
 	}
 
 	public Point getEnd() 
 	{
-		return new Point((int)line.getP2().getX(), (int)line.getP2().getY());
+		return endCoordination;
 	}
 	
 	@Override
-	public void setStart(Point2D.Float point) 
+	public void setStart(Point point) 
 	{
-		line.getP1().setLocation(point);
+		startCoordination = point;
 	}
 
-	public void setEnd(Point2D.Float point) 
+	public void setEnd(Point point) 
 	{
-		line.getP2().setLocation(point);
+		endCoordination = point;
 	}
 	
 	@Override
 	public void draw(Graphics2D g)
-	{		
-		int startX, startY, endX, endY;
-		startX = (int)line.getP1().getX();
-		startY = (int)line.getP1().getY();
-		endX = (int)line.getP2().getX();
-		endY = (int)line.getP2().getY();
-				
+	{				
 		g.setColor(defaultColor); 
-		g.drawLine(startX, startY, endX, endY);
+		g.drawLine((int)getX1(), (int)getY1(), (int)getX2(), (int)getY2());
+	}
+
+	@Override
+	public Rectangle2D getBounds2D()
+	{
+		return null;
+	}
+
+	@Override
+	public Point2D getP1()
+	{
+		return startCoordination;
+	}
+
+	@Override
+	public Point2D getP2()
+	{
+		return endCoordination;
+	}
+
+	@Override
+	public double getX1()
+	{
+		return startCoordination.x;
+	}
+
+	@Override
+	public double getX2() 
+	{
+		return endCoordination.x;
+	}
+
+	@Override
+	public double getY1()
+	{
+		return startCoordination.y;
+	}
+
+	@Override
+	public double getY2()
+	{
+		return endCoordination.y;
+	}
+
+	@Override
+	public void setLine(double arg0, double arg1, double arg2, double arg3)
+	{
+		
 	}
 }

@@ -3,34 +3,38 @@ package application.models.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class RectAdapter implements AbstractShape 
+public class RectAdapter extends Rectangle2D.Double implements AbstractShape 
 {
-	private Rectangle2D.Float rectangle;
+	private static final long serialVersionUID = 1L;
 	private Color defaultColor;
+	private int width, height;
 	
 	public RectAdapter() 
 	{
-		rectangle = new Rectangle2D.Float();
 		defaultColor = Color.blue.brighter();
-	}
-	
-	public Rectangle2D.Float getRectangle()
-	{
-		return rectangle;
 	}
 	
 	public Point getStart()
 	{
-		return new Point((int)rectangle.x, (int)rectangle.y);
+		return new Point((int)x, (int)y);
 	}
 	
-	public void setStart(Point2D.Float pt)
+	public void setStart(Point point)
 	{
-		rectangle.x = pt.x;
-		rectangle.y = pt.y;
+		x = point.x;
+		y = point.y;
+	}
+	
+	public void setWidth(int width)
+	{
+		this.width = width;
+	}
+	
+	public void setHeight(int height)
+	{
+		this.height = height;
 	}
 	
 	@Override
@@ -43,7 +47,6 @@ public class RectAdapter implements AbstractShape
 	public void draw(Graphics2D g) 
 	{
 		g.setColor(defaultColor); 
-		g.drawRect((int)rectangle.x, (int)rectangle.y, (int)rectangle.width, 
-				(int)rectangle.height);
+		g.drawRect((int)x, (int)y, (int)width, (int)height);
 	}
 }

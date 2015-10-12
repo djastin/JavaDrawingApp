@@ -1,6 +1,6 @@
 package application.models.core.strategy;
 
-import java.awt.geom.Point2D;
+import java.awt.Point;
 import application.models.core.AbstractShape;
 import application.models.core.LineAdapter;
 import application.models.interfaces.IShapeComposer;
@@ -14,8 +14,7 @@ public class LineComposer implements IShapeComposer
 	@Override
 	public AbstractShape create(int x, int y) 
 	{
-		Point2D.Float startPos = new Point2D.Float();
-		startPos.setLocation(x, y);
+		Point startPos = new Point(x, y);
 		lineAdapter = new LineAdapter();
 		lineAdapter.setStart(startPos);
 				
@@ -25,7 +24,7 @@ public class LineComposer implements IShapeComposer
 	@Override
 	public void expand(int x, int y) 
 	{
-		Point2D.Float endPos = new Point2D.Float();
+		Point endPos = new Point(x, y);
 		endPos.setLocation(x, y);
 		lineAdapter.setEnd(endPos);
 	}
@@ -33,8 +32,7 @@ public class LineComposer implements IShapeComposer
 	@Override
 	public void complete(int x, int y) 
 	{
-		Point2D.Float endPos = new Point2D.Float();
-		endPos.setLocation(x, y);
+		Point endPos = new Point(x, y);
 		lineAdapter.setEnd(endPos);
 	}
 

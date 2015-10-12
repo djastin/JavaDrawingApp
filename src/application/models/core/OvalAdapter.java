@@ -4,35 +4,28 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 
-public class OvalAdapter implements AbstractShape
+public class OvalAdapter extends Ellipse2D.Float implements AbstractShape
 {
-	private Ellipse2D.Float oval;
+	private static final long serialVersionUID = 1L;
 	private Color defaultColor;
 	
 	public OvalAdapter() 
 	{
-		oval = new Ellipse2D.Float();
 		defaultColor = Color.green.darker();
-	}
-	
-	public Ellipse2D.Float getOval()
-	{
-		return oval;
 	}
 	
 	@Override
 	public Point getStart() 
 	{
-		return new Point((int)oval.x, (int)oval.y);
+		return new Point((int)x, (int)y);
 	}
 	
 	@Override
-	public void setStart(Point2D.Float pt) 
+	public void setStart(Point point) 
 	{
-		oval.x = (int)pt.getX();
-		oval.y = (int)pt.getY();
+		x = (float)point.x;
+		y = (float)point.y;
 	}
 	
 	@Override
@@ -45,10 +38,20 @@ public class OvalAdapter implements AbstractShape
 	{
 		return defaultColor;
 	}
+	
+	public void setWidth(int width)
+	{
+		this.width = width;
+	}
+	
+	public void setHeight(int height)
+	{
+		this.height = height;
+	}
 
 	public void draw(Graphics2D g)
 	{
 		g.setColor(defaultColor); 
-		g.drawOval((int)oval.x, (int)oval.y, (int)oval.width, (int)oval.height);
+		g.drawOval((int)x, (int)y, (int)width, (int)height);
 	}
 }

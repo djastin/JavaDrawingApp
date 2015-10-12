@@ -75,6 +75,7 @@ public class OOPDrawController implements MouseListener, MouseMotionListener,
 		else if(arg0.getActionCommand().equals("rectButton"))
 		{
 			currentComposer = new RectComposer();
+			
 		}
 		else if(arg0.getActionCommand().equals("clearButton"))
 		{
