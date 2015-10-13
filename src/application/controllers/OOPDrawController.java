@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import application.models.core.AbstractShape;
 import application.models.core.ShapeManager;
 import application.models.core.strategy.LineComposer;
-import application.models.core.strategy.OvalComposer;
-import application.models.core.strategy.RectComposer;
+import application.models.factory.ComposerFactory;
 import application.models.interfaces.IShapeComposer;
 import application.views.OOPDraw2;
 
@@ -20,11 +19,14 @@ public class OOPDrawController implements MouseListener, MouseMotionListener,
 	ActionListener
 {
 	private OOPDraw2 view;
+	private ComposerFactory composerFactory;
 	private IShapeComposer currentComposer;
 	
 	public OOPDrawController(OOPDraw2 view)
 	{
 		this.view = view;
+		
+		composerFactory = ComposerFactory.getInstance();
 		setComposerToDefault();
 	}
 	
@@ -64,20 +66,15 @@ public class OOPDrawController implements MouseListener, MouseMotionListener,
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{		
-		if(arg0.getActionCommand().equals("lineButton"))
+		for(IShapeComposer composer : composerFactory.getComposers())
 		{
-			setComposerToDefault();
+			if(arg0.getActionCommand().equals(composer.getClass().getSimpleName()))
+			{
+				currentComposer = composer;
+			}
 		}
-		else if(arg0.getActionCommand().equals("ovalButton"))
-		{
-			currentComposer = new OvalComposer();
-		}
-		else if(arg0.getActionCommand().equals("rectButton"))
-		{
-			currentComposer = new RectComposer();
-			
-		}
-		else if(arg0.getActionCommand().equals("clearButton"))
+		
+		if(arg0.getActionCommand().equals("clearButton"))
 		{
 			clearScreen();
 		}

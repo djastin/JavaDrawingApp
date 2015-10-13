@@ -6,11 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import application.controllers.OOPDrawController;
+import application.models.factory.ComposerFactory;
+import application.models.interfaces.IShapeComposer;
 
 public class OOPDraw2 extends JFrame
 {
 	private static final long serialVersionUID = 4695753453561082104L;
-	private Button btnLine, btnOval, btnRect, btnClear;
+	private Button btnClear;
 	boolean brect = false;
 	private OOPDrawController controller;
 
@@ -40,7 +42,6 @@ public class OOPDraw2 extends JFrame
 		setFrameOptions();
 		setMouseListener();
 		initializeButtons();
-		addButtonsToFrame();
 	}
 	
 	public void setFrameOptions()
@@ -58,29 +59,22 @@ public class OOPDraw2 extends JFrame
 	
 	public void initializeButtons()
 	{
-		btnLine = new Button("Line");
-		btnLine.setActionCommand("lineButton");
-		btnLine.addActionListener(controller);
+		ComposerFactory composerFactory = ComposerFactory.getInstance();
 		
-		btnOval = new Button("Oval");
-		btnOval.setActionCommand("ovalButton");
-		btnOval.addActionListener(controller);
-		
-		btnRect = new Button("Rectangle");
-		btnRect.setActionCommand("rectButton");
-		btnRect.addActionListener(controller);
+		for(IShapeComposer composer : composerFactory.getComposers())
+		{
+			String composerName = composer.getClass().getSimpleName();
+			
+			Button button = new Button(composerName.replace("Composer", ""));
+			button.setActionCommand(composerName);
+			button.addActionListener(controller);
+			
+			add(button);
+		}
 		
 		btnClear = new Button("Clear");
 		btnClear.setActionCommand("clearButton");
 		btnClear.addActionListener(controller);
-	}
-	
-	public void addButtonsToFrame()
-	{
-		add(btnLine);
-		add(btnOval);
-		add(btnRect);
 		add(btnClear);
 	}
-
 }
