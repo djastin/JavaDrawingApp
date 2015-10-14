@@ -9,7 +9,7 @@ import application.controllers.OOPDrawController;
 import application.models.factory.ComposerFactory;
 import application.models.interfaces.IShapeComposer;
 
-public class OOPDraw2 extends JFrame
+public class OOPDraw2 extends JFrame implements View
 {
 	private static final long serialVersionUID = 4695753453561082104L;
 	private Button btnClear;

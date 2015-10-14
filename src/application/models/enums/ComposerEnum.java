@@ -4,6 +4,7 @@ public enum ComposerEnum
 {
 	LineComposer,
 	OvalComposer,
-	RectComposer
+	RectComposer,
+	FunnyShapeComposer
 
 }

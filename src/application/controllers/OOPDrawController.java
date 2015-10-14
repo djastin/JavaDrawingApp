@@ -1,33 +1,26 @@
 package application.controllers;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import application.models.core.AbstractShape;
-import application.models.core.ShapeManager;
-import application.models.core.strategy.LineComposer;
-import application.models.factory.ComposerFactory;
-import application.models.interfaces.IShapeComposer;
+import application.models.facade.ComposerFacade;
 import application.views.OOPDraw2;
 
 public class OOPDrawController implements MouseListener, MouseMotionListener, 
 	ActionListener
 {
 	private OOPDraw2 view;
-	private ComposerFactory composerFactory;
-	private IShapeComposer currentComposer;
+	private ComposerFacade composerFacade;
 	
 	public OOPDrawController(OOPDraw2 view)
 	{
 		this.view = view;
 		
-		composerFactory = ComposerFactory.getInstance();
-		setComposerToDefault();
+		composerFacade = new ComposerFacade();
+		composerFacade.setComposerToDefault();
 	}
 	
 	@Override
@@ -42,21 +35,20 @@ public class OOPDrawController implements MouseListener, MouseMotionListener,
 	@Override
 	public void mousePressed(MouseEvent arg0) 
 	{
-		AbstractShape shape_result = currentComposer.create(arg0.getX(), arg0.getY());
-		getShapes().add(shape_result);
+		composerFacade.createShape(arg0.getX(), arg0.getY());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0)
 	{
-		currentComposer.complete(arg0.getX(), arg0.getY());
+		composerFacade.completeShape(arg0.getX(), arg0.getY());
 		view.repaint();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) 
 	{
-		currentComposer.expand(arg0.getX(), arg0.getY());
+		composerFacade.expandShape(arg0.getX(), arg0.getY());
 		view.repaint();
 	}
 
@@ -66,42 +58,20 @@ public class OOPDrawController implements MouseListener, MouseMotionListener,
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{		
-		for(IShapeComposer composer : composerFactory.getComposers())
-		{
-			if(arg0.getActionCommand().equals(composer.getClass().getSimpleName()))
-			{
-				currentComposer = composer;
-			}
-		}
+		composerFacade.setCurrentComposer(arg0.getActionCommand());
 		
 		if(arg0.getActionCommand().equals("clearButton"))
-		{
 			clearScreen();
-		}
 	}
 	
 	public void clearScreen()
 	{
-		getShapes().clear();
-		
+		composerFacade.clearShapes();
 		view.repaint();
 	}
 	
 	public void paintAll(Graphics graphics)
 	{
-		for(Object shape : getShapes() )
-		{
-			((AbstractShape)shape).draw((Graphics2D)graphics);
-		}
-	}
-	
-	private void setComposerToDefault()
-	{
-		currentComposer = new LineComposer();
-	}
-	
-	private ArrayList<Object> getShapes()
-	{
-		return ShapeManager.getInstance().getShapes();
+		composerFacade.paintAllShapes(graphics);
 	}
 }
