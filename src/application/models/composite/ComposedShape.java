@@ -5,30 +5,30 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 
-public class ComposedShape implements AbstractShape
+public class ComposedShape implements IAbstractShape
 {
 	protected Color defaultColor;
 	protected Point startPosition;
-	private ArrayList<AbstractShape> shapes;
+	private ArrayList<IAbstractShape> shapes;
 	
 	public ComposedShape()	
 	{
-		shapes = new ArrayList<AbstractShape>();
+		shapes = new ArrayList<IAbstractShape>();
 	}
 	
-	public ArrayList<AbstractShape> getShapes()
+	public ArrayList<IAbstractShape> getShapes()
 	{
 		return shapes;
 	}
 	
-	public void addShape(AbstractShape shape)
+	public void addShape(IAbstractShape shape)
 	{
 		shapes.add(shape);
 	}
 	
-	public void addAllShapes(ArrayList<AbstractShape> list)
+	public void addAllShapes(ArrayList<IAbstractShape> list)
 	{
 		shapes.addAll(shapes);
 	}

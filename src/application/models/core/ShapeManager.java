@@ -21,7 +21,7 @@ public class ShapeManager
 		return instance;
 	}
 	
-	public void addShape(AbstractShape shape)
+	public void addShape(IAbstractShape shape)
 	{
 		shapes.add(shape);
 	}

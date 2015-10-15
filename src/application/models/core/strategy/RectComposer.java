@@ -1,7 +1,7 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 import application.models.core.RectAdapter;
 import application.models.interfaces.IShapeComposer;
 
@@ -12,7 +12,7 @@ public class RectComposer implements IShapeComposer
 	public RectComposer() { }
 
 	@Override
-	public AbstractShape create(int x, int y)
+	public IAbstractShape create(int x, int y)
 	{
 		rectangleAdapter = new RectAdapter();
 		Point startPos = new Point(x, y);
@@ -58,7 +58,7 @@ public class RectComposer implements IShapeComposer
 	}
 	
 	@Override
-	public AbstractShape getShape()
+	public IAbstractShape getShape()
 	{
 		return rectangleAdapter;
 	}

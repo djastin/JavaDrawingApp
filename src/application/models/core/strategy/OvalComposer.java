@@ -1,7 +1,7 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 import application.models.core.OvalAdapter;
 import application.models.interfaces.IShapeComposer;
 
@@ -13,7 +13,7 @@ public class OvalComposer implements IShapeComposer
 	public OvalComposer() { }
 
 	@Override
-	public AbstractShape create(int x, int y)
+	public IAbstractShape create(int x, int y)
 	{		
 		ovalAdapter = new OvalAdapter();
 		Point point = new Point(x, y);
@@ -55,7 +55,7 @@ public class OvalComposer implements IShapeComposer
 	}
 	
 	@Override
-	public AbstractShape getShape() 
+	public IAbstractShape getShape() 
 	{
 		return ovalAdapter;
 	}

@@ -1,7 +1,7 @@
 package application.models.core.strategy;
 
 import java.awt.Point;
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 import application.models.core.LineAdapter;
 import application.models.interfaces.IShapeComposer;
 
@@ -12,7 +12,7 @@ public class LineComposer implements IShapeComposer
 	public LineComposer() {	}
 
 	@Override
-	public AbstractShape create(int x, int y) 
+	public IAbstractShape create(int x, int y) 
 	{
 		Point startPos = new Point(x, y);
 		lineAdapter = new LineAdapter();
@@ -37,7 +37,7 @@ public class LineComposer implements IShapeComposer
 	}
 
 	@Override
-	public AbstractShape getShape() 
+	public IAbstractShape getShape() 
 	{
 		return lineAdapter;
 	}

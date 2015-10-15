@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-public interface AbstractShape
+public interface IAbstractShape
 {	
 	public void setColor(Color color);
 	public void setStart(Point point);

@@ -7,7 +7,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class LineAdapter extends Line2D implements AbstractShape
+public class LineAdapter extends Line2D implements IAbstractShape
 {
 	private Color defaultColor;
 	private Point startCoordination, endCoordination;

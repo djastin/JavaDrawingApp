@@ -3,7 +3,7 @@ package application.models.core.strategy;
 import java.awt.Point;
 
 import application.models.composite.SmileyShape;
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 import application.models.interfaces.IShapeComposer;
 
 public class FunnyShapeComposer implements IShapeComposer
@@ -12,7 +12,7 @@ public class FunnyShapeComposer implements IShapeComposer
 	private int shapeWidth, shapeHeight;
 	
 	@Override
-	public AbstractShape create(int x, int y)
+	public IAbstractShape create(int x, int y)
 	{
 		Point startPos = new Point(x, y);
 		smileyShape = new SmileyShape();
@@ -55,7 +55,7 @@ public class FunnyShapeComposer implements IShapeComposer
 	}
 
 	@Override
-	public AbstractShape getShape() 
+	public IAbstractShape getShape() 
 	{
 		return smileyShape;
 	}

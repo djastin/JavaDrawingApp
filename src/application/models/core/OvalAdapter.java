@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
-public class OvalAdapter extends Ellipse2D.Float implements AbstractShape
+public class OvalAdapter extends Ellipse2D.Float implements IAbstractShape
 {
 	private static final long serialVersionUID = 1L;
 	private Color defaultColor;

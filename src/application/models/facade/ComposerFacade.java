@@ -3,7 +3,7 @@ package application.models.facade;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import application.models.core.AbstractShape;
+import application.models.core.IAbstractShape;
 import application.models.core.ShapeManager;
 import application.models.core.strategy.LineComposer;
 import application.models.factory.ComposerFactory;
@@ -25,7 +25,7 @@ public class ComposerFacade
 	{
 		for(Object shape : getShapes() )
 		{
-			((AbstractShape)shape).draw((Graphics2D)graphics);
+			((IAbstractShape)shape).draw((Graphics2D)graphics);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class ComposerFacade
 	
 	public void createShape(int x, int y)
 	{
-		AbstractShape shape_result = currentComposer.create(x, y);
+		IAbstractShape shape_result = currentComposer.create(x, y);
 		getShapes().add(shape_result);
 	}
 	

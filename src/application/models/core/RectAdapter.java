@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
-public class RectAdapter extends Rectangle2D.Double implements AbstractShape 
+public class RectAdapter extends Rectangle2D.Double implements IAbstractShape 
 {
 	private static final long serialVersionUID = 1L;
 	private Color defaultColor;
