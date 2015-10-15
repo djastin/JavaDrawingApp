@@ -4,6 +4,9 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import application.controllers.OOPDrawController;
 import application.models.factory.ComposerFactory;
@@ -25,8 +28,14 @@ public class OOPDraw2 extends JFrame implements View
 	@Override
 	public void paint(Graphics g)
 	{
-		setShapeDetails(g);
-		controller.paintAll(g);
+		BufferedImage bufferedImage = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = bufferedImage.createGraphics();
+		
+		setShapeDetails(g2d);
+		controller.paintAll(g2d);
+		
+		Graphics2D g2d_component = (Graphics2D)g;
+		g2d_component.drawImage(bufferedImage, null, 0, 0);
 	}
 	
 	public void setShapeDetails(Graphics g)
