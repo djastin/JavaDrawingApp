@@ -14,9 +14,8 @@ public class LineComposer implements IShapeComposer
 	@Override
 	public IAbstractShape create(int x, int y) 
 	{
-		Point startPos = new Point(x, y);
 		lineAdapter = new LineAdapter();
-		lineAdapter.setStart(startPos);
+		lineAdapter.setStart(new Point(x, y));
 				
 		return lineAdapter;
 	}
@@ -24,16 +23,13 @@ public class LineComposer implements IShapeComposer
 	@Override
 	public void expand(int x, int y) 
 	{
-		Point endPos = new Point(x, y);
-		endPos.setLocation(x, y);
-		lineAdapter.setEnd(endPos);
+		lineAdapter.setEnd(new Point(x, y));
 	}
 
 	@Override
 	public void complete(int x, int y) 
 	{
-		Point endPos = new Point(x, y);
-		lineAdapter.setEnd(endPos);
+		lineAdapter.setEnd(new Point(x, y));
 	}
 
 	@Override
