@@ -9,10 +9,29 @@ public class OvalAdapter extends Ellipse2D.Float implements IAbstractShape
 {
 	private static final long serialVersionUID = 1L;
 	private Color defaultColor;
+	private int shapeWidth, shapeHeight;
 	
 	public OvalAdapter() 
 	{
 		defaultColor = Color.green.darker();
+	}
+	
+	public void setLocation(int x, int y)
+	{
+		Point drawto = new Point(Math.max(x, getStart().x), Math.max(y, getStart().y));
+		Point newstart = new Point(Math.min(x, getStart().x), Math.min(y, getStart().y));
+		
+		setBoundaries(drawto, newstart);
+		setStart(newstart);
+	}
+	
+	private void setBoundaries(Point drawto, Point newstart)
+	{
+		shapeWidth = Math.abs((drawto.x - newstart.x));
+		shapeHeight = Math.abs((drawto.y - newstart.y));
+		
+		setWidth(shapeWidth);
+		setHeight(shapeHeight);
 	}
 	
 	@Override

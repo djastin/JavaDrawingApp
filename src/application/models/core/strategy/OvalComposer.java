@@ -8,7 +8,6 @@ import application.models.interfaces.IShapeComposer;
 public class OvalComposer implements IShapeComposer
 {
 	private OvalAdapter ovalAdapter;
-	private int shapeWidth, shapeHeight;
 	
 	public OvalComposer() { }
 
@@ -16,8 +15,7 @@ public class OvalComposer implements IShapeComposer
 	public IAbstractShape create(int x, int y)
 	{		
 		ovalAdapter = new OvalAdapter();
-		Point point = new Point(x, y);
-		ovalAdapter.setStart(point);
+		ovalAdapter.setStart(new Point(x, y));
 		
 		return ovalAdapter;
 	}
@@ -25,33 +23,13 @@ public class OvalComposer implements IShapeComposer
 	@Override
 	public void expand(int x, int y)
 	{	
-		Point startPos = ovalAdapter.getStart();
-		
-		Point drawto = new Point(Math.max(x, startPos.x), Math.max(y, startPos.y));
-		Point newstart = new Point(Math.min(x, startPos.x), Math.min(y, startPos.y));
-		
-		int shapeWidth, shapeHeight;
-		shapeWidth = Math.abs((drawto.x - newstart.x));
-		shapeHeight = Math.abs((drawto.y - newstart.y));
-
-		ovalAdapter.setWidth(shapeWidth);
-		ovalAdapter.setHeight(shapeHeight);
-		ovalAdapter.setStart(newstart);
+		ovalAdapter.setLocation(x, y);
 	}
 
 	@Override
 	public void complete(int x, int y)
 	{
-		Point startPos = ovalAdapter.getStart();
-		
-		Point drawto = new Point(Math.max(x, startPos.x), Math.max(y, startPos.y));
-		Point newstart = new Point(Math.min(x, startPos.x), Math.min(y, startPos.y));
-		shapeWidth = Math.abs((drawto.x - newstart.x));
-		shapeHeight = Math.abs((drawto.y - newstart.y));
-
-		ovalAdapter.setWidth(shapeWidth);
-		ovalAdapter.setHeight(shapeHeight);
-		ovalAdapter.setStart(newstart);
+		ovalAdapter.setLocation(x, y);
 	}
 	
 	@Override

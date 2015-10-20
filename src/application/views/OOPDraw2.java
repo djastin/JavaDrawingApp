@@ -16,7 +16,6 @@ public class OOPDraw2 extends JFrame implements View
 {
 	private static final long serialVersionUID = 4695753453561082104L;
 	private Button btnClear;
-	boolean brect = false;
 	private OOPDrawController controller;
 
 	public OOPDraw2()
